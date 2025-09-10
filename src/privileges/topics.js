@@ -168,9 +168,9 @@ privsTopics.canDelete = async function (tid, uid) {
 
 	const { deleterUid } = topicData;
 	
+	console.log('Jimmy Zhang');
 	const MiddleExpression = (isOwner && (deleterUid === 0 || deleterUid === topicData.uid));
 	const roleCheck = MiddleExpression || isModerator;
-	//return allowedTo[0] && ((isOwner && (deleterUid === 0 || deleterUid === topicData.uid)) || isModerator);
 	return allowedTo[0] && roleCheck;
 };
 
