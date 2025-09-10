@@ -154,6 +154,13 @@ privsTopics.canDelete = async function (tid, uid) {
 		helpers.isAllowedTo('topics:delete', uid, [topicData.cid]),
 	]);
 
+	const { deleterUid } = topicData;
+
+	console.log('Jimmy Zhang');
+	const MiddleExpression = (isOwner && (deleterUid === 0 || deleterUid === topicData.uid));
+	const roleCheck = MiddleExpression || isModerator;
+
+	/*
 	if (isAdministrator) {
 		return true;
 	}
@@ -166,10 +173,12 @@ privsTopics.canDelete = async function (tid, uid) {
 		throw new Error(langKey);
 	}
 
-	const { deleterUid } = topicData;
+	if (isAdministrator) {
+		return true;
+	}
+
+	//const { deleterUid } = topicData;
 	
-	const MiddleExpression = (isOwner && (deleterUid === 0 || deleterUid === topicData.uid));
-	const roleCheck = MiddleExpression || isModerator;
 	return allowedTo[0] && roleCheck;
 };
 
