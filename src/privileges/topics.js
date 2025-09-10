@@ -154,10 +154,9 @@ privsTopics.canDelete = async function (tid, uid) {
 		helpers.isAllowedTo('topics:delete', uid, [topicData.cid]),
 	]);
 
-	const { deleterUid } = topicData;
-
-	const MiddleExpression = (isOwner && (deleterUid === 0 || deleterUid === topicData.uid));
-	const roleCheck = MiddleExpression || isModerator;
+	if (isAdministrator) {
+		return true;
+	}
 
 	const { preventTopicDeleteAfterReplies } = meta.config;
 	if (!isModerator && preventTopicDeleteAfterReplies && (topicData.postcount - 1) >= preventTopicDeleteAfterReplies) {
@@ -166,11 +165,12 @@ privsTopics.canDelete = async function (tid, uid) {
 			'[[error:cant-delete-topic-has-reply]]';
 		throw new Error(langKey);
 	}
-
-	if (isAdministrator) {
-		return true;
-	}
 	
+	const { deleterUid } = topicData;
+
+	const MiddleExpression = (isOwner && (deleterUid === 0 || deleterUid === topicData.uid));
+	const roleCheck = MiddleExpression || isModerator;
+
 	return allowedTo[0] && roleCheck;
 };
 
