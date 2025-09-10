@@ -156,15 +156,8 @@ privsTopics.canDelete = async function (tid, uid) {
 
 	const { deleterUid } = topicData;
 
-	console.log('Jimmy Zhang');
 	const MiddleExpression = (isOwner && (deleterUid === 0 || deleterUid === topicData.uid));
 	const roleCheck = MiddleExpression || isModerator;
-
-	/*
-	if (isAdministrator) {
-		return true;
-	}
-	*/
 
 	const { preventTopicDeleteAfterReplies } = meta.config;
 	if (!isModerator && preventTopicDeleteAfterReplies && (topicData.postcount - 1) >= preventTopicDeleteAfterReplies) {
@@ -177,8 +170,6 @@ privsTopics.canDelete = async function (tid, uid) {
 	if (isAdministrator) {
 		return true;
 	}
-
-	//const { deleterUid } = topicData;
 	
 	return allowedTo[0] && roleCheck;
 };
