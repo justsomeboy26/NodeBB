@@ -164,6 +164,7 @@ privsTopics.canDelete = async function (tid, uid) {
 	if (isAdministrator) {
 		return true;
 	}
+	*/
 
 	const { preventTopicDeleteAfterReplies } = meta.config;
 	if (!isModerator && preventTopicDeleteAfterReplies && (topicData.postcount - 1) >= preventTopicDeleteAfterReplies) {
